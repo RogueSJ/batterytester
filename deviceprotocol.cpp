@@ -42,6 +42,12 @@ bool DeviceProtocol::openPort(const QString &portName, int baudrate)
     m_serialPort->clear(QSerialPort::AllDirections);
     m_serialPort->flush();
     
+    // Give the port time to stabilize (important for Windows USB CDC)
+    QThread::msleep(500);
+    
+    // Clear again after stabilization
+    m_serialPort->clear(QSerialPort::AllDirections);
+    
     qDebug() << "Serial port opened:" << portName << "at" << baudrate << "baud";
     emit statusMessage(QString("Connected to %1").arg(portName));
     return true;
@@ -102,6 +108,10 @@ void DeviceProtocol::sendAck()
     
     m_serialPort->write(packet);
     m_serialPort->flush();
+    m_serialPort->waitForBytesWritten(100);  // Wait for data to be sent
+    
+    // Small delay to let device process (important for Windows USB CDC)
+    QThread::msleep(10);
     
     qDebug() << "Sent ACK:" << packet.toHex();
 }
@@ -133,6 +143,7 @@ void DeviceProtocol::sendNack()
     
     m_serialPort->write(packet);
     m_serialPort->flush();
+    m_serialPort->waitForBytesWritten(100);  // Wait for data to be sent
     
     qDebug() << "Sent NACK:" << packet.toHex();
 }
