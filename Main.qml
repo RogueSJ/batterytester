@@ -243,12 +243,15 @@ ApplicationWindow {
                     GroupBox {
                         Layout.fillWidth: true
                         title: "Connection Settings"
-                        topPadding: 40
+                        topPadding: 45
+                        leftPadding: 15
+                        rightPadding: 15
+                        bottomPadding: 15
                         
                         background: Rectangle {
-                            y: parent.topPadding - parent.padding
+                            y: 30
                             width: parent.width
-                            height: parent.height - parent.topPadding + parent.padding
+                            height: parent.height - 30
                             color: "#313244"
                             border.color: "#45475a"
                             radius: 8
@@ -256,7 +259,7 @@ ApplicationWindow {
                         
                         label: Label {
                             x: parent.leftPadding
-                            y: 10
+                            y: 8
                             text: parent.title
                             color: "#89b4fa"
                             font.bold: true
