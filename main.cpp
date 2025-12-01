@@ -46,17 +46,16 @@ static void messageHandler(QtMsgType type, const QMessageLogContext &context, co
 int main(int argc, char *argv[])
 {
     // Install message handler if requested via env var
-    QByteArray logPath = qEnvironmentVariable("BATTERYTESTER_LOG");
+    QString logPath = qEnvironmentVariable("BATTERYTESTER_LOG");
     if (!logPath.isEmpty()) {
-        QString path = QString::fromLocal8Bit(logPath);
-        QDir dir = QFileInfo(path).absoluteDir();
+        QDir dir = QFileInfo(logPath).absoluteDir();
         if (!dir.exists()) dir.mkpath(".");
-        g_logFile.setFileName(path);
+        g_logFile.setFileName(logPath);
         if (!g_logFile.open(QIODevice::Append | QIODevice::Text)) {
-            qWarning() << "Failed to open log file:" << path;
+            qWarning() << "Failed to open log file:" << logPath;
         } else {
             qInstallMessageHandler(messageHandler);
-            qInfo() << "Logging to file:" << path;
+            qInfo() << "Logging to file:" << logPath;
         }
     }
 
