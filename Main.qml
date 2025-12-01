@@ -257,35 +257,31 @@ ApplicationWindow {
                     
                     Item { height: 15 }
                     
-                    // Settings Group
-                    GroupBox {
+                    // Settings Group - Custom container for cross-platform consistency
+                    Rectangle {
                         Layout.fillWidth: true
-                        title: "Connection Settings"
-                        topPadding: 50
-                        leftPadding: 15
-                        rightPadding: 15
-                        bottomPadding: 15
+                        Layout.preferredHeight: connectionSettingsContent.implicitHeight + 50
+                        color: "#313244"
+                        border.color: "#45475a"
+                        radius: 8
                         
-                        background: Rectangle {
-                            y: 35
-                            width: parent.width
-                            height: parent.height - 35
-                            color: "#313244"
-                            border.color: "#45475a"
-                            radius: 8
-                        }
-                        
-                        label: Label {
-                            x: parent.leftPadding
-                            y: 8
-                            text: parent.title
+                        Label {
+                            id: connectionSettingsLabel
+                            x: 15
+                            y: 12
+                            text: "Connection Settings"
                             color: "#89b4fa"
                             font.bold: true
                             font.pixelSize: 14
                         }
                         
                         GridLayout {
-                            anchors.fill: parent
+                            id: connectionSettingsContent
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.top: connectionSettingsLabel.bottom
+                            anchors.margins: 15
+                            anchors.topMargin: 12
                             columns: 2
                             columnSpacing: 20
                             rowSpacing: 15
@@ -469,24 +465,19 @@ ApplicationWindow {
                         }
                     }
                     
-                    // Downloaded Files List
-                    GroupBox {
+                    // Downloaded Files List - Custom container for cross-platform consistency
+                    Rectangle {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        title: "Downloaded Files"
+                        color: "#313244"
+                        border.color: "#45475a"
+                        radius: 8
                         
-                        background: Rectangle {
-                            y: parent.topPadding - parent.padding
-                            width: parent.width
-                            height: parent.height - parent.topPadding + parent.padding
-                            color: "#313244"
-                            border.color: "#45475a"
-                            radius: 8
-                        }
-                        
-                        label: Label {
-                            x: parent.leftPadding
-                            text: parent.title
+                        Label {
+                            id: downloadedFilesLabel
+                            x: 15
+                            y: 12
+                            text: "Downloaded Files"
                             color: "#89b4fa"
                             font.bold: true
                             font.pixelSize: 14
@@ -494,7 +485,12 @@ ApplicationWindow {
                         
                         ListView {
                             id: downloadedFilesList
-                            anchors.fill: parent
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.top: downloadedFilesLabel.bottom
+                            anchors.bottom: parent.bottom
+                            anchors.margins: 15
+                            anchors.topMargin: 10
                             clip: true
                             spacing: 5
                             model: deviceManager ? deviceManager.receivedFiles : []
