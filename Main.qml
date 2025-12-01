@@ -56,7 +56,16 @@ ApplicationWindow {
         id: folderDialog
         title: "Select Save Location"
         onAccepted: {
-            saveLocation = selectedFolder.toString().replace("file://", "")
+            // Handle both Windows (file:///C:/) and Linux (file://) paths
+            var path = selectedFolder.toString()
+            if (Qt.platform.os === "windows") {
+                // Windows: file:///C:/path -> C:/path
+                path = path.replace(/^file:\/\/\//, "")
+            } else {
+                // Linux/Mac: file:///path -> /path
+                path = path.replace(/^file:\/\//, "")
+            }
+            saveLocation = path
         }
     }
     
@@ -66,7 +75,16 @@ ApplicationWindow {
         title: "Select CSV File"
         nameFilters: ["CSV files (*.csv)", "All files (*)"]
         onAccepted: {
-            selectedCsvFile = selectedFile.toString().replace("file://", "")
+            // Handle both Windows (file:///C:/) and Linux (file://) paths
+            var path = selectedFile.toString()
+            if (Qt.platform.os === "windows") {
+                // Windows: file:///C:/path -> C:/path
+                path = path.replace(/^file:\/\/\//, "")
+            } else {
+                // Linux/Mac: file:///path -> /path
+                path = path.replace(/^file:\/\//, "")
+            }
+            selectedCsvFile = path
             if (csvModel) {
                 csvModel.loadCsvFile(selectedCsvFile)
                 selectedChannel = 0
@@ -243,15 +261,15 @@ ApplicationWindow {
                     GroupBox {
                         Layout.fillWidth: true
                         title: "Connection Settings"
-                        topPadding: 45
+                        topPadding: 50
                         leftPadding: 15
                         rightPadding: 15
                         bottomPadding: 15
                         
                         background: Rectangle {
-                            y: 30
+                            y: 35
                             width: parent.width
-                            height: parent.height - 30
+                            height: parent.height - 35
                             color: "#313244"
                             border.color: "#45475a"
                             radius: 8
