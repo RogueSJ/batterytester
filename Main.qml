@@ -679,50 +679,69 @@ ApplicationWindow {
                                         stepSize: 10
                                         editable: true
                                         Layout.preferredWidth: 150
+                                        Layout.preferredHeight: 40
                                         
                                         background: Rectangle {
+                                            implicitWidth: 150
+                                            implicitHeight: 40
                                             color: "#45475a"
                                             radius: 6
-                                            border.color: parent.focus ? "#89b4fa" : "#585b70"
+                                            border.color: currentSpinBox.focus ? "#89b4fa" : "#585b70"
                                         }
                                         
                                         contentItem: TextInput {
-                                            text: parent.value
+                                            z: 2
+                                            text: currentSpinBox.textFromValue(currentSpinBox.value, currentSpinBox.locale)
                                             color: "#cdd6f4"
+                                            font.pixelSize: 14
                                             horizontalAlignment: Text.AlignHCenter
                                             verticalAlignment: Text.AlignVCenter
-                                            readOnly: !parent.editable
-                                            validator: parent.validator
+                                            readOnly: !currentSpinBox.editable
+                                            validator: currentSpinBox.validator
                                             inputMethodHints: Qt.ImhDigitsOnly
                                             selectByMouse: true
+                                            anchors.fill: parent
+                                            anchors.leftMargin: 35
+                                            anchors.rightMargin: 35
+                                            onTextEdited: {
+                                                var val = parseInt(text)
+                                                if (!isNaN(val)) {
+                                                    currentSpinBox.value = Math.max(currentSpinBox.from, Math.min(currentSpinBox.to, val))
+                                                }
+                                            }
                                         }
                                         
                                         up.indicator: Rectangle {
                                             x: parent.width - width
-                                            height: parent.height / 2
-                                            width: 30
-                                            color: parent.up.pressed ? "#6c7086" : "#585b70"
-                                            radius: 4
+                                            width: 35
+                                            height: parent.height
+                                            implicitWidth: 35
+                                            implicitHeight: 40
+                                            color: currentSpinBox.up.pressed ? "#89b4fa" : (currentSpinBox.up.hovered ? "#6c7086" : "#585b70")
+                                            radius: 6
                                             Text {
                                                 text: "+"
                                                 color: "#cdd6f4"
-                                                anchors.centerIn: parent
+                                                font.pixelSize: 18
                                                 font.bold: true
+                                                anchors.centerIn: parent
                                             }
                                         }
                                         
                                         down.indicator: Rectangle {
-                                            x: parent.width - width
-                                            y: parent.height / 2
-                                            height: parent.height / 2
-                                            width: 30
-                                            color: parent.down.pressed ? "#6c7086" : "#585b70"
-                                            radius: 4
+                                            x: 0
+                                            width: 35
+                                            height: parent.height
+                                            implicitWidth: 35
+                                            implicitHeight: 40
+                                            color: currentSpinBox.down.pressed ? "#89b4fa" : (currentSpinBox.down.hovered ? "#6c7086" : "#585b70")
+                                            radius: 6
                                             Text {
                                                 text: "-"
                                                 color: "#cdd6f4"
-                                                anchors.centerIn: parent
+                                                font.pixelSize: 18
                                                 font.bold: true
+                                                anchors.centerIn: parent
                                             }
                                         }
                                     }
@@ -756,50 +775,69 @@ ApplicationWindow {
                                         stepSize: 1
                                         editable: true
                                         Layout.preferredWidth: 150
+                                        Layout.preferredHeight: 40
                                         
                                         background: Rectangle {
+                                            implicitWidth: 150
+                                            implicitHeight: 40
                                             color: "#45475a"
                                             radius: 6
-                                            border.color: parent.focus ? "#89b4fa" : "#585b70"
+                                            border.color: sampleRateSpinBox.focus ? "#89b4fa" : "#585b70"
                                         }
                                         
                                         contentItem: TextInput {
-                                            text: parent.value
+                                            z: 2
+                                            text: sampleRateSpinBox.textFromValue(sampleRateSpinBox.value, sampleRateSpinBox.locale)
                                             color: "#cdd6f4"
+                                            font.pixelSize: 14
                                             horizontalAlignment: Text.AlignHCenter
                                             verticalAlignment: Text.AlignVCenter
-                                            readOnly: !parent.editable
-                                            validator: parent.validator
+                                            readOnly: !sampleRateSpinBox.editable
+                                            validator: sampleRateSpinBox.validator
                                             inputMethodHints: Qt.ImhDigitsOnly
                                             selectByMouse: true
+                                            anchors.fill: parent
+                                            anchors.leftMargin: 35
+                                            anchors.rightMargin: 35
+                                            onTextEdited: {
+                                                var val = parseInt(text)
+                                                if (!isNaN(val)) {
+                                                    sampleRateSpinBox.value = Math.max(sampleRateSpinBox.from, Math.min(sampleRateSpinBox.to, val))
+                                                }
+                                            }
                                         }
                                         
                                         up.indicator: Rectangle {
                                             x: parent.width - width
-                                            height: parent.height / 2
-                                            width: 30
-                                            color: parent.up.pressed ? "#6c7086" : "#585b70"
-                                            radius: 4
+                                            width: 35
+                                            height: parent.height
+                                            implicitWidth: 35
+                                            implicitHeight: 40
+                                            color: sampleRateSpinBox.up.pressed ? "#89b4fa" : (sampleRateSpinBox.up.hovered ? "#6c7086" : "#585b70")
+                                            radius: 6
                                             Text {
                                                 text: "+"
                                                 color: "#cdd6f4"
-                                                anchors.centerIn: parent
+                                                font.pixelSize: 18
                                                 font.bold: true
+                                                anchors.centerIn: parent
                                             }
                                         }
                                         
                                         down.indicator: Rectangle {
-                                            x: parent.width - width
-                                            y: parent.height / 2
-                                            height: parent.height / 2
-                                            width: 30
-                                            color: parent.down.pressed ? "#6c7086" : "#585b70"
-                                            radius: 4
+                                            x: 0
+                                            width: 35
+                                            height: parent.height
+                                            implicitWidth: 35
+                                            implicitHeight: 40
+                                            color: sampleRateSpinBox.down.pressed ? "#89b4fa" : (sampleRateSpinBox.down.hovered ? "#6c7086" : "#585b70")
+                                            radius: 6
                                             Text {
                                                 text: "-"
                                                 color: "#cdd6f4"
-                                                anchors.centerIn: parent
+                                                font.pixelSize: 18
                                                 font.bold: true
+                                                anchors.centerIn: parent
                                             }
                                         }
                                     }
@@ -833,50 +871,69 @@ ApplicationWindow {
                                         stepSize: 1
                                         editable: true
                                         Layout.preferredWidth: 150
+                                        Layout.preferredHeight: 40
                                         
                                         background: Rectangle {
+                                            implicitWidth: 150
+                                            implicitHeight: 40
                                             color: "#45475a"
                                             radius: 6
-                                            border.color: parent.focus ? "#89b4fa" : "#585b70"
+                                            border.color: durationSpinBox.focus ? "#89b4fa" : "#585b70"
                                         }
                                         
                                         contentItem: TextInput {
-                                            text: parent.value
+                                            z: 2
+                                            text: durationSpinBox.textFromValue(durationSpinBox.value, durationSpinBox.locale)
                                             color: "#cdd6f4"
+                                            font.pixelSize: 14
                                             horizontalAlignment: Text.AlignHCenter
                                             verticalAlignment: Text.AlignVCenter
-                                            readOnly: !parent.editable
-                                            validator: parent.validator
+                                            readOnly: !durationSpinBox.editable
+                                            validator: durationSpinBox.validator
                                             inputMethodHints: Qt.ImhDigitsOnly
                                             selectByMouse: true
+                                            anchors.fill: parent
+                                            anchors.leftMargin: 35
+                                            anchors.rightMargin: 35
+                                            onTextEdited: {
+                                                var val = parseInt(text)
+                                                if (!isNaN(val)) {
+                                                    durationSpinBox.value = Math.max(durationSpinBox.from, Math.min(durationSpinBox.to, val))
+                                                }
+                                            }
                                         }
                                         
                                         up.indicator: Rectangle {
                                             x: parent.width - width
-                                            height: parent.height / 2
-                                            width: 30
-                                            color: parent.up.pressed ? "#6c7086" : "#585b70"
-                                            radius: 4
+                                            width: 35
+                                            height: parent.height
+                                            implicitWidth: 35
+                                            implicitHeight: 40
+                                            color: durationSpinBox.up.pressed ? "#89b4fa" : (durationSpinBox.up.hovered ? "#6c7086" : "#585b70")
+                                            radius: 6
                                             Text {
                                                 text: "+"
                                                 color: "#cdd6f4"
-                                                anchors.centerIn: parent
+                                                font.pixelSize: 18
                                                 font.bold: true
+                                                anchors.centerIn: parent
                                             }
                                         }
                                         
                                         down.indicator: Rectangle {
-                                            x: parent.width - width
-                                            y: parent.height / 2
-                                            height: parent.height / 2
-                                            width: 30
-                                            color: parent.down.pressed ? "#6c7086" : "#585b70"
-                                            radius: 4
+                                            x: 0
+                                            width: 35
+                                            height: parent.height
+                                            implicitWidth: 35
+                                            implicitHeight: 40
+                                            color: durationSpinBox.down.pressed ? "#89b4fa" : (durationSpinBox.down.hovered ? "#6c7086" : "#585b70")
+                                            radius: 6
                                             Text {
                                                 text: "-"
                                                 color: "#cdd6f4"
-                                                anchors.centerIn: parent
+                                                font.pixelSize: 18
                                                 font.bold: true
+                                                anchors.centerIn: parent
                                             }
                                         }
                                     }
@@ -919,50 +976,69 @@ ApplicationWindow {
                                         stepSize: 1
                                         editable: true
                                         Layout.preferredWidth: 150
+                                        Layout.preferredHeight: 40
                                         
                                         background: Rectangle {
+                                            implicitWidth: 150
+                                            implicitHeight: 40
                                             color: "#45475a"
                                             radius: 6
-                                            border.color: parent.focus ? "#89b4fa" : "#585b70"
+                                            border.color: minTempSpinBox.focus ? "#89b4fa" : "#585b70"
                                         }
                                         
                                         contentItem: TextInput {
-                                            text: parent.value
+                                            z: 2
+                                            text: minTempSpinBox.textFromValue(minTempSpinBox.value, minTempSpinBox.locale)
                                             color: "#cdd6f4"
+                                            font.pixelSize: 14
                                             horizontalAlignment: Text.AlignHCenter
                                             verticalAlignment: Text.AlignVCenter
-                                            readOnly: !parent.editable
-                                            validator: parent.validator
+                                            readOnly: !minTempSpinBox.editable
+                                            validator: minTempSpinBox.validator
                                             inputMethodHints: Qt.ImhDigitsOnly
                                             selectByMouse: true
+                                            anchors.fill: parent
+                                            anchors.leftMargin: 35
+                                            anchors.rightMargin: 35
+                                            onTextEdited: {
+                                                var val = parseInt(text)
+                                                if (!isNaN(val)) {
+                                                    minTempSpinBox.value = Math.max(minTempSpinBox.from, Math.min(minTempSpinBox.to, val))
+                                                }
+                                            }
                                         }
                                         
                                         up.indicator: Rectangle {
                                             x: parent.width - width
-                                            height: parent.height / 2
-                                            width: 30
-                                            color: parent.up.pressed ? "#6c7086" : "#585b70"
-                                            radius: 4
+                                            width: 35
+                                            height: parent.height
+                                            implicitWidth: 35
+                                            implicitHeight: 40
+                                            color: minTempSpinBox.up.pressed ? "#89b4fa" : (minTempSpinBox.up.hovered ? "#6c7086" : "#585b70")
+                                            radius: 6
                                             Text {
                                                 text: "+"
                                                 color: "#cdd6f4"
-                                                anchors.centerIn: parent
+                                                font.pixelSize: 18
                                                 font.bold: true
+                                                anchors.centerIn: parent
                                             }
                                         }
                                         
                                         down.indicator: Rectangle {
-                                            x: parent.width - width
-                                            y: parent.height / 2
-                                            height: parent.height / 2
-                                            width: 30
-                                            color: parent.down.pressed ? "#6c7086" : "#585b70"
-                                            radius: 4
+                                            x: 0
+                                            width: 35
+                                            height: parent.height
+                                            implicitWidth: 35
+                                            implicitHeight: 40
+                                            color: minTempSpinBox.down.pressed ? "#89b4fa" : (minTempSpinBox.down.hovered ? "#6c7086" : "#585b70")
+                                            radius: 6
                                             Text {
                                                 text: "-"
                                                 color: "#cdd6f4"
-                                                anchors.centerIn: parent
+                                                font.pixelSize: 18
                                                 font.bold: true
+                                                anchors.centerIn: parent
                                             }
                                         }
                                         
@@ -990,50 +1066,69 @@ ApplicationWindow {
                                         stepSize: 1
                                         editable: true
                                         Layout.preferredWidth: 150
+                                        Layout.preferredHeight: 40
                                         
                                         background: Rectangle {
+                                            implicitWidth: 150
+                                            implicitHeight: 40
                                             color: "#45475a"
                                             radius: 6
-                                            border.color: parent.focus ? "#89b4fa" : "#585b70"
+                                            border.color: maxTempSpinBox.focus ? "#89b4fa" : "#585b70"
                                         }
                                         
                                         contentItem: TextInput {
-                                            text: parent.value
+                                            z: 2
+                                            text: maxTempSpinBox.textFromValue(maxTempSpinBox.value, maxTempSpinBox.locale)
                                             color: "#cdd6f4"
+                                            font.pixelSize: 14
                                             horizontalAlignment: Text.AlignHCenter
                                             verticalAlignment: Text.AlignVCenter
-                                            readOnly: !parent.editable
-                                            validator: parent.validator
+                                            readOnly: !maxTempSpinBox.editable
+                                            validator: maxTempSpinBox.validator
                                             inputMethodHints: Qt.ImhDigitsOnly
                                             selectByMouse: true
+                                            anchors.fill: parent
+                                            anchors.leftMargin: 35
+                                            anchors.rightMargin: 35
+                                            onTextEdited: {
+                                                var val = parseInt(text)
+                                                if (!isNaN(val)) {
+                                                    maxTempSpinBox.value = Math.max(maxTempSpinBox.from, Math.min(maxTempSpinBox.to, val))
+                                                }
+                                            }
                                         }
                                         
                                         up.indicator: Rectangle {
                                             x: parent.width - width
-                                            height: parent.height / 2
-                                            width: 30
-                                            color: parent.up.pressed ? "#6c7086" : "#585b70"
-                                            radius: 4
+                                            width: 35
+                                            height: parent.height
+                                            implicitWidth: 35
+                                            implicitHeight: 40
+                                            color: maxTempSpinBox.up.pressed ? "#89b4fa" : (maxTempSpinBox.up.hovered ? "#6c7086" : "#585b70")
+                                            radius: 6
                                             Text {
                                                 text: "+"
                                                 color: "#cdd6f4"
-                                                anchors.centerIn: parent
+                                                font.pixelSize: 18
                                                 font.bold: true
+                                                anchors.centerIn: parent
                                             }
                                         }
                                         
                                         down.indicator: Rectangle {
-                                            x: parent.width - width
-                                            y: parent.height / 2
-                                            height: parent.height / 2
-                                            width: 30
-                                            color: parent.down.pressed ? "#6c7086" : "#585b70"
-                                            radius: 4
+                                            x: 0
+                                            width: 35
+                                            height: parent.height
+                                            implicitWidth: 35
+                                            implicitHeight: 40
+                                            color: maxTempSpinBox.down.pressed ? "#89b4fa" : (maxTempSpinBox.down.hovered ? "#6c7086" : "#585b70")
+                                            radius: 6
                                             Text {
                                                 text: "-"
                                                 color: "#cdd6f4"
-                                                anchors.centerIn: parent
+                                                font.pixelSize: 18
                                                 font.bold: true
+                                                anchors.centerIn: parent
                                             }
                                         }
                                         
