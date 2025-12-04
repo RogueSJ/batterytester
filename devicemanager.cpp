@@ -93,11 +93,8 @@ void DeviceManager::startDownload()
     setStatus("Waiting for device...");
     setProgress(0);
     
-    // Use a timer to run the blocking operation without freezing UI completely
-    // This allows the app to remain somewhat responsive
-    QTimer::singleShot(0, this, [this]() {
-        doReceiveOperation();
-    });
+    // Call directly - waitForHandshake() uses processEvents() for UI responsiveness
+    doReceiveOperation();
 }
 
 void DeviceManager::receiveResults(const QString &portName)
@@ -121,10 +118,11 @@ void DeviceManager::receiveResults(const QString &portName)
     setConnected(true);
     setStatus("Waiting for device to start transfer...");
     
-    // Use a timer to run the blocking operation
-    QTimer::singleShot(0, this, [this]() {
-        doReceiveOperation();
-    });
+    // Call directly - no QTimer! The waitForHandshake() function
+    // already uses processEvents() to keep UI responsive.
+    // QTimer::singleShot(0,...) creates a race condition where the device
+    // sends handshake before we start listening.
+    doReceiveOperation();
 }
 
 void DeviceManager::doReceiveOperation()
