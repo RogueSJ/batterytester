@@ -39,14 +39,15 @@ bool DeviceProtocol::openPort(const QString &portName, int baudrate)
     }
 
     // Clear any buffered data (like Python's reset_input_buffer/reset_output_buffer)
+    // This matches the Python script behavior exactly
     m_serialPort->clear(QSerialPort::AllDirections);
     m_serialPort->flush();
     
-    // Give the port time to stabilize (important for Windows USB CDC)
-    QThread::msleep(500);
-    
-    // Clear again after stabilization
-    m_serialPort->clear(QSerialPort::AllDirections);
+    // NOTE: Do NOT sleep or clear again here!
+    // The device may send handshake immediately after seeing port open.
+    // Any delay + clear would discard the handshake packet, requiring
+    // the user to press the device button AFTER the app button.
+    // The Python script works because it doesn't have this delay.
     
     qDebug() << "Serial port opened:" << portName << "at" << baudrate << "baud";
     emit statusMessage(QString("Connected to %1").arg(portName));
