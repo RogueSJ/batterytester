@@ -673,7 +673,7 @@ ApplicationWindow {
                                     
                                     SpinBox {
                                         id: currentSpinBox
-                                        from: 0
+                                        from: 1
                                         to: 500
                                         value: 250
                                         stepSize: 10
@@ -728,7 +728,7 @@ ApplicationWindow {
                                     }
                                     
                                     Label {
-                                        text: "(0 - 500)"
+                                        text: "(1 - 500)"
                                         font.pixelSize: 12
                                         color: "#6c7086"
                                     }
@@ -750,7 +750,7 @@ ApplicationWindow {
                                     
                                     SpinBox {
                                         id: sampleRateSpinBox
-                                        from: 0
+                                        from: 1
                                         to: 1000
                                         value: 1
                                         stepSize: 1
@@ -805,7 +805,7 @@ ApplicationWindow {
                                     }
                                     
                                     Label {
-                                        text: "(0 - 1,000)"
+                                        text: "(1 - 1,000)"
                                         font.pixelSize: 12
                                         color: "#6c7086"
                                     }
@@ -827,7 +827,7 @@ ApplicationWindow {
                                     
                                     SpinBox {
                                         id: durationSpinBox
-                                        from: 0
+                                        from: 1
                                         to: 1000
                                         value: 3
                                         stepSize: 1
@@ -882,7 +882,7 @@ ApplicationWindow {
                                     }
                                     
                                     Label {
-                                        text: "(0 - 1,000)"
+                                        text: "(1 - 1,000)"
                                         font.pixelSize: 12
                                         color: "#6c7086"
                                     }

@@ -276,20 +276,20 @@ void DeviceManager::sendSettings(const QString &portName, int planIndex, int cur
     }
     
     // Validate ranges
-    if (current < 0 || current > 500) {
-        setStatus("Error: Current must be 0-500 mA");
+    if (current < 1 || current > 500) {
+        setStatus("Error: Current must be 1-500 mA");
         emit errorOccurred("Invalid current value");
         return;
     }
     
-    if (sampleRate < 0 || sampleRate > 1000) {
-        setStatus("Error: Sample rate must be 0-1000 minutes");
+    if (sampleRate < 1 || sampleRate > 1000) {
+        setStatus("Error: Sample rate must be 1-1000 minutes");
         emit errorOccurred("Invalid sample rate");
         return;
     }
     
-    if (duration < 0 || duration > 1000) {
-        setStatus("Error: Duration must be 0-1000 hours");
+    if (duration < 1 || duration > 1000) {
+        setStatus("Error: Duration must be 1-1000 hours");
         emit errorOccurred("Invalid duration");
         return;
     }
